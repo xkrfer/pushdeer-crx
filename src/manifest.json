@@ -1,0 +1,44 @@
+{
+  "description": "pushdeer Client for Edge and Chrome",
+  "name": "pushdeer浏览器插件 ",
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "author": "xkrfer <xkrfer@gmail.com>",
+  "homepage_url": "https://github.com/xkrfer/pushdeer-crx",
+  "icons": {
+    "128": "logo.png",
+    "16": "logo.png",
+    "48": "logo.png"
+  },
+  "permissions": [
+    "storage",
+    "clipboardWrite",
+    "clipboardRead",
+    "activeTab",
+    "webRequest",
+    "storage",
+    "tabs",
+    "cookies",
+    "notifications",
+    "alarms",
+    "contextMenus"
+  ],
+  "host_permissions": [ "<all_urls>"],
+  "action": {
+    "default_title": "",
+    "default_icon": {
+      "16": "logo.png",
+      "24": "logo.png",
+      "32": "logo.png"
+    },
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "background/background.js",
+    "type": "module"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}
