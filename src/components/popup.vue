@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <init-server/>
+    <router-view/>
   </div>
 </template>
 
