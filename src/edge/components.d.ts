@@ -4,8 +4,10 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    VanCellGroup: typeof import('vant/es')['CellGroup']
-    VanField: typeof import('vant/es')['Field']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElInput: typeof import('element-plus/es')['ElInput']
   }
 }
 

@@ -1,5 +1,13 @@
-const a  = fetch('https://dog.ceo/api/breeds/image/random')
+// 插件id
+import {MessageType, receiveMessageFromContent} from "@/helpers/message";
 
-a.then(res => {
-    console.log(res.clone())
+const CHROME_ID = chrome.runtime.id
+receiveMessageFromContent((message, sendResponse) => {
+    switch (message.type) {
+        case MessageType.GET_BACKGROUND_CHROME_ID:
+            sendResponse(CHROME_ID)
+            break
+        default:
+            break
+    }
 })

@@ -1,3 +1,8 @@
+import {ENDPOINT, GITHUB, TOKEN} from "@/helpers/constants";
+import mitt from 'mitt'
+
+const emitter = mitt()
+
 class Adapter {
 
     private static instance: Adapter;
@@ -6,21 +11,56 @@ class Adapter {
         return new Promise<boolean>((resolve) => {
             if (import.meta.env.DEV) {
                 localStorage.setItem(key, value)
+                resolve(true)
+            } else {
+                chrome.storage.local.set({[key]: value}, () => {
+                    resolve(true)
+                })
             }
-            resolve(true)
         })
-
     }
 
-    getStorage(key: string) {
+    getStorage(key: string | string[]) {
         return new Promise<any>((resolve) => {
-            let value: any = undefined
             if (import.meta.env.DEV) {
-                value = localStorage.getItem(key)
+                if (Array.isArray(key)) {
+                    const result = {}
+                    key.forEach(k => {
+                        // @ts-ignore
+                        result[k] = localStorage.getItem(k)
+                    })
+                    resolve(result)
+                } else {
+                    resolve(localStorage.getItem(key))
+                }
+            } else {
+                chrome.storage.local.get(key, (result) => {
+                    if (Array.isArray(key)) {
+                        resolve(result)
+                    } else {
+                        resolve(result[key])
+                    }
+                })
             }
-            resolve(value)
         })
+    }
 
+    on(event: string, callback: (...args: any[]) => void) {
+        emitter.on(event, callback)
+    }
+
+    emit(event: string, ...args: any[]) {
+        // @ts-ignore
+        emitter.emit(event, ...args)
+    }
+
+    async loginGithub() {
+        const data = await this.getStorage([ENDPOINT, GITHUB])
+        if (import.meta.env.DEV) {
+            // window.open(`https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`)
+            return "aeee171482304ce2b98d48e214330700"
+        }
+        return ""
     }
 
     static getInstance() {

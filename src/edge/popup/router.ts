@@ -1,13 +1,56 @@
 import {createWebHashHistory, createRouter} from "vue-router"
-import InitServer from "@/components/popup/init-server.vue"
+import BasicLayout from "@/components/layout/basic-layout.vue";
+import Login from "@/components/popup/login.vue"
+import Init from "@/components/popup/init.vue"
+import BlankLayout from "@/components/layout/blank-layout.vue";
+import UserLayout from "@/components/layout/user-layout.vue";
+import {useGlobalStore} from "@/edge/popup/useGlobal";
 
 export const router = createRouter({
-    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
     history: createWebHashHistory(),
     routes: [
         {
-            path: "/init-server",
-            component: InitServer
+            path: "/",
+            redirect: "/login",
+            component: BlankLayout,
+            children: [
+                {
+                    path: "login",
+                    name: "LoginLayout",
+                    redirect: "/login/panel",
+                    component: BasicLayout,
+                    children: [
+                        {
+                            path: "panel",
+                            name: "Login",
+                            component: Login
+                        },
+                        {
+                            path: "init",
+                            name: "Init",
+                            component: Init
+                        }
+                    ]
+                },
+                {
+                    path: "user",
+                    name: "User",
+                    component: UserLayout
+                }
+            ]
         }
     ]
+});
+
+router.beforeEach(async (to, from) => {
+    // 如果不是打开login页面，则需要判断是否登录
+    if (!to.path.startsWith("/login")) {
+        const store = useGlobalStore()
+        if (!store.token) {
+            await store.init()
+        }
+        if (!store.token) {
+            return router.push("/login")
+        }
+    }
 });

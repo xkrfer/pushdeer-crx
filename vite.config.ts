@@ -2,10 +2,10 @@ import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from "path"
 import copy from 'rollup-plugin-copy'
+import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import {
-    AntDesignVueResolver,
-    VantResolver,
+    ElementPlusResolver
 } from 'unplugin-vue-components/resolvers'
 
 const resolve = (dest = './') => {
@@ -20,12 +20,16 @@ const root = (dest = '') => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [vue(), Components({
-        resolvers: [
-            AntDesignVueResolver(),
-            VantResolver()
-        ]
-    })],
+    plugins: [
+        vue(),
+        Components({
+            resolvers: [
+                ElementPlusResolver(),
+            ]
+        }),
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+        })],
     resolve: {
         alias: {
             '@': root()
@@ -34,12 +38,12 @@ export default defineConfig({
     root: root("/edge"),
     build: {
         emptyOutDir: true,
-        minify: false,
         rollupOptions: {
             input: {
                 popup: root("/edge/popup/popup.html"),
                 options: root("/edge/options/options.html"),
-                background: root("/edge/background/background.ts")
+                background: root("/edge/background/background.ts"),
+                content: root("/edge/content/content-script.ts")
             },
             output: {
                 dir: "dist",

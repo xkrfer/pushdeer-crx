@@ -1,6 +1,6 @@
 import axios from 'axios';
+import {ElMessage} from "element-plus";
 
-// 创建一个axios实例
 const service = axios.create({
     timeout: 2000, // 超时时间
 });
@@ -13,8 +13,17 @@ service.interceptors.request.use(
 );
 
 service.interceptors.response.use(
-    (response) => (response),
+    (response) => {
+        if (response.data.code !== 0) {
+            ElMessage.error(response.data.error);
+            return
+        }
+        return response
+    },
     (error) => {
+        if (error.response) {
+            ElMessage.error(error.message)
+        }
         return Promise.reject(error);
     },
 );

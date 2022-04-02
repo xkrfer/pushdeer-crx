@@ -8,13 +8,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "^2.2.8",
     "axios": "^0.26.1",
+    "element-plus": "^2.1.7",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.12",
-    "vant": "^3.4.5",
     "vue": "^3.2.31"
   },
   "devDependencies": {
+    "@types/chrome": "0.0.180",
     "@types/node": "^17.0.21",
     "@vitejs/plugin-vue": "^2.2.4",
     "autoprefixer": "^10.4.2",
@@ -23,7 +24,8 @@
     "rollup-plugin-copy": "^3.4.0",
     "tailwindcss": "^3.0.23",
     "typescript": "^4.6.2",
-    "unplugin-vue-components": "^0.18.0",
+    "unplugin-auto-import": "^0.6.9",
+    "unplugin-vue-components": "^0.18.5",
     "vite": "^2.8.6",
     "vue-router": "^4.0.14",
     "vue-tsc": "^0.32.1"
