@@ -38,6 +38,7 @@ export default defineConfig({
     root: root("/edge"),
     build: {
         emptyOutDir: true,
+        minify: false,
         rollupOptions: {
             input: {
                 popup: root("/edge/popup/popup.html"),
@@ -59,6 +60,13 @@ export default defineConfig({
                     ]
                 })
             ]
+        },
+    },
+    css: {
+        preprocessorOptions: {
+            less: {
+                charset: false
+            }
         }
     }
 })

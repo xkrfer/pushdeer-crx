@@ -2,6 +2,10 @@ import {createWebHashHistory, createRouter} from "vue-router"
 import BasicLayout from "@/components/layout/basic-layout.vue";
 import Login from "@/components/popup/login.vue"
 import Init from "@/components/popup/init.vue"
+import Setting from "@/components/popup/setting.vue"
+import Device from "@/components/popup/device.vue"
+import Message from "@/components/popup/message.vue"
+import Key from "@/components/popup/key.vue"
 import BlankLayout from "@/components/layout/blank-layout.vue";
 import UserLayout from "@/components/layout/user-layout.vue";
 import {useGlobalStore} from "@/edge/popup/useGlobal";
@@ -11,7 +15,7 @@ export const router = createRouter({
     routes: [
         {
             path: "/",
-            redirect: "/login",
+            redirect: "/user",
             component: BlankLayout,
             children: [
                 {
@@ -35,22 +39,53 @@ export const router = createRouter({
                 {
                     path: "user",
                     name: "User",
-                    component: UserLayout
+                    redirect: "/user/setting",
+                    component: UserLayout,
+                    children: [
+                        {
+                            path: "message",
+                            name: "Message",
+                            component: Message
+                        },
+                        {
+                            path: "device",
+                            name: "Device",
+                            component: Device
+                        },
+                        {
+                            path: "key",
+                            name: "Key",
+                            component: Key
+                        },
+                        {
+                            path: "setting",
+                            name: "Setting",
+                            component: Setting
+                        }
+                    ]
                 }
             ]
         }
     ]
 });
 
-router.beforeEach(async (to, from) => {
-    // 如果不是打开login页面，则需要判断是否登录
-    if (!to.path.startsWith("/login")) {
-        const store = useGlobalStore()
-        if (!store.token) {
-            await store.init()
+router.beforeEach(async (to, from, next) => {
+    const store = useGlobalStore()
+    await store.init()
+    if (!store.endpoint) {
+        next({
+            name: "Login"
+        })
+    } else {
+        if (!store.userInfo) {
+            await store.getUserInfo()
         }
-        if (!store.token) {
-            return router.push("/login")
+        if (to.path.startsWith("/login")) {
+            next({
+                name: "User"
+            })
+        } else {
+            next()
         }
     }
 });

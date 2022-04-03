@@ -38,16 +38,12 @@ const login = () => {
 
 const getAppid = async () => {
   if (!endpoint.value) return
-  const {data} = await run()
+  const data = await run()
   store.set(GITHUB, data.content.github)
 }
 
 onMounted(() => {
   getAppid()
-
-  adapter.on(LOGIN_SUCCESS, ({token}) => {
-    console.log(token)
-  })
 })
 
 </script>

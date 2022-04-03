@@ -24,9 +24,8 @@ class Adapter {
         return new Promise<any>((resolve) => {
             if (import.meta.env.DEV) {
                 if (Array.isArray(key)) {
-                    const result = {}
+                    const result: any = {}
                     key.forEach(k => {
-                        // @ts-ignore
                         result[k] = localStorage.getItem(k)
                     })
                     resolve(result)
@@ -56,11 +55,7 @@ class Adapter {
 
     async loginGithub() {
         const data = await this.getStorage([ENDPOINT, GITHUB])
-        if (import.meta.env.DEV) {
-            // window.open(`https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`)
-            return "aeee171482304ce2b98d48e214330700"
-        }
-        return ""
+        await chrome.tabs.create({url: `https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`})
     }
 
     static getInstance() {
