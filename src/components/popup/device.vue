@@ -4,7 +4,7 @@
       <h3 class="font-bold">设备</h3>
       <el-button type="primary" class="!bg-[#343e7e] !border-[#343e7e]" @click="addDevice">新增</el-button>
     </div>
-    <el-scrollbar height="492px">
+    <el-scrollbar height="492px" v-if="devices.length>0">
       <div class="device" v-for="device in devices" :key="device.id">
         <div class="box relative">
           <div class="flex items-center">
@@ -29,6 +29,9 @@
         </div>
       </div>
     </el-scrollbar>
+    <p v-else class="text-[#606266] opacity-[0.7]">
+      点击右上角新增注册本设备方可接收推送消息
+    </p>
   </div>
 </template>
 

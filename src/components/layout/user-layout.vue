@@ -3,7 +3,7 @@
     <div class="h-[552px]">
       <router-view/>
     </div>
-    <div class="tab-box h-[48px]">
+    <div class="tab-box h-[48px]  ">
       <div class="tab cursor-pointer" :class="active === tab.path ? 'active':''" v-for="tab in Tabs" :key="tab.name"
            @click="onTabChange(tab)">
         <span class="iconfont" :class="tab.icon"></span>
@@ -75,7 +75,8 @@ const onTabChange = (tab: ITab) => {
     display: flex;
     background: #f6f5f6;
     font-size: 14px;
-
+    position: relative;
+    z-index: 10;
     .tab {
       flex: 1;
       display: flex;

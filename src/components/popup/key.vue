@@ -5,7 +5,7 @@
       <el-button type="primary" class="!bg-[#343e7e] !border-[#343e7e]" :disabled="createLoading" @click="addKey">新增
       </el-button>
     </div>
-    <el-scrollbar height="492px">
+    <el-scrollbar height="492px" v-if="keyList.length > 0">
       <div v-for="key in keyList" :key="key.id" class="relative">
         <div class="box flex-col">
           <div class="flex w-full justify-between items-center">
@@ -35,6 +35,9 @@
         </div>
       </div>
     </el-scrollbar>
+    <p v-else class="text-[#606266] opacity-[0.7]">
+      点击右上角新增Key后方可在推送消息中使用
+    </p>
   </div>
 </template>
 

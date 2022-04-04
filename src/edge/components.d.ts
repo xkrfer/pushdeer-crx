@@ -5,22 +5,14 @@
 declare module 'vue' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
-    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
-    ElCol: typeof import('element-plus/es')['ElCol']
-    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElOption: typeof import('element-plus/es')['ElOption']
     ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
-    ElSwitch: typeof import('element-plus/es')['ElSwitch']
-    ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
