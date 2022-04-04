@@ -30,7 +30,7 @@
       </div>
     </el-scrollbar>
     <p v-else class="text-[#606266] opacity-[0.7]">
-      点击右上角新增注册本设备方可接收推送消息
+      点击右上角新增注册本设备后方可接收推送消息
     </p>
   </div>
 </template>
