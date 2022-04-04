@@ -1,10 +1,10 @@
 <template>
   <div class="user">
-    <div>
+    <div class="h-[552px]">
       <router-view/>
     </div>
-    <div class="tab-box">
-      <div class="tab" :class="active === tab.path ? 'active':''" v-for="tab in Tabs" :key="tab.name"
+    <div class="tab-box h-[48px]">
+      <div class="tab cursor-pointer" :class="active === tab.path ? 'active':''" v-for="tab in Tabs" :key="tab.name"
            @click="onTabChange(tab)">
         <span class="iconfont" :class="tab.icon"></span>
         <span>{{ tab.name }}</span>
@@ -41,6 +41,11 @@ const Tabs: ITab[] = [
     icon: "icon-yuechi"
   },
   {
+    name: "推送",
+    path: "Push",
+    icon: "icon-tuisong"
+  },
+  {
     name: "设置",
     path: "Setting",
     icon: "icon-shezhi"
@@ -66,9 +71,6 @@ const onTabChange = (tab: ITab) => {
   background: url("../../assets/deer.png") 100% no-repeat;
   height: 100%;
   width: 100%;
-  display: grid;
-  grid-template-rows: 1fr 48px;
-
   .tab-box {
     display: flex;
     background: #f6f5f6;
@@ -79,8 +81,6 @@ const onTabChange = (tab: ITab) => {
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
-
       &.active {
         color: #313d7d;
       }

@@ -2,7 +2,7 @@
 
 .box {
   display: flex;
-  height: 48px;
+  min-height: 48px;
   justify-content: space-between;
   align-items: center;
   margin: 0 24px 24px;
@@ -12,11 +12,16 @@
   box-shadow: 1px 1px 10px rgba(49, 61, 125, 0.5);
 }
 
-.el-button--primary {
-  background-color: #313d7d!important;
-  border-color: #313d7d!important;
+@primary-color: #313d7d;
+
+
+.el-input__inner:focus {
+  box-shadow: 0 0 0 1px @primary-color inset !important;
 }
 
-.el-button--text{
-  color: #313d7d!important;
+:root {
+  --el-color-primary: @primary-color !important;
+  --el-color-primary-dark-2: @primary-color !important;
+  --el-color-primary-light-3: @primary-color !important;
 }
+

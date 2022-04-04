@@ -5,10 +5,7 @@ import {onMounted} from "vue";
 export function useGetDeviceList() {
     const store = useGlobalStore();
     const listDevice = useRequest('/device/list', {
-        method: "POST",
-        data: {
-            token: store.token,
-        }
+        method: "POST"
     });
     const list = () => {
         listDevice.run().then(res => {
@@ -23,6 +20,7 @@ export function useGetDeviceList() {
     });
 
     return {
-        listDevice: list
+        listDevice: list,
+        listLoading: listDevice.loading
     }
 }

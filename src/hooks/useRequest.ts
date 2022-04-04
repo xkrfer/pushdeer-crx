@@ -18,7 +18,9 @@ export const useRequest = (path: string, config?: IConfig | IConfigFunc) => {
         const {data = {}, params = {}} = conf ?? {}
         const res = await request(`${store.endpoint}${path}`, {
             ...conf,
-            data: Object.assign({}, data, body?.data ?? {}),
+            data: Object.assign({
+                token: store.token
+            }, data, body?.data ?? {}),
             params: Object.assign({}, params, body?.params ?? {}),
         })
         result.value = res

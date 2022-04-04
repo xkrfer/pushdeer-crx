@@ -4,11 +4,10 @@ import {storeToRefs} from "pinia";
 
 export function useCreateDevice() {
     const store = useGlobalStore()
-    const {token, device_id} = storeToRefs(store)
+    const {device_id} = storeToRefs(store)
     const {run} = useRequest("/device/reg", () => ({
         method: "POST",
         data: {
-            token: token.value,
             name: "Browser",
             device_id: device_id.value,
             is_clip: 0,

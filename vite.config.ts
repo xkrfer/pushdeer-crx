@@ -23,12 +23,15 @@ export default defineConfig({
     plugins: [
         vue(),
         Components({
-            resolvers: [
-                ElementPlusResolver(),
-            ]
+            resolvers: [ElementPlusResolver({importStyle: 'css'})],
+            dts: 'components.d.ts'
         }),
         AutoImport({
-            resolvers: [ElementPlusResolver()],
+            resolvers: [ElementPlusResolver({
+                importStyle: 'css',
+                exclude: new RegExp(/^(?!.*loading-directive).*$/)
+            })],
+            dts: 'auto-imports.d.ts'
         })],
     resolve: {
         alias: {

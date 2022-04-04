@@ -6,6 +6,7 @@ import Setting from "@/components/popup/setting.vue"
 import Device from "@/components/popup/device.vue"
 import Message from "@/components/popup/message.vue"
 import Key from "@/components/popup/key.vue"
+import Push from "@/components/popup/push.vue"
 import BlankLayout from "@/components/layout/blank-layout.vue";
 import UserLayout from "@/components/layout/user-layout.vue";
 import {useGlobalStore} from "@/edge/popup/useGlobal";
@@ -56,6 +57,11 @@ export const router = createRouter({
                             path: "key",
                             name: "Key",
                             component: Key
+                        },
+                        {
+                            path: "push",
+                            name: "Push",
+                            component: Push
                         },
                         {
                             path: "setting",

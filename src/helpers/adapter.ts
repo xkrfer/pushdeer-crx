@@ -1,7 +1,4 @@
-import {ENDPOINT, GITHUB, TOKEN} from "@/helpers/constants";
-import mitt from 'mitt'
-
-const emitter = mitt()
+import {ENDPOINT, GITHUB} from "@/helpers/constants";
 
 class Adapter {
 
@@ -42,15 +39,6 @@ class Adapter {
                 })
             }
         })
-    }
-
-    on(event: string, callback: (...args: any[]) => void) {
-        emitter.on(event, callback)
-    }
-
-    emit(event: string, ...args: any[]) {
-        // @ts-ignore
-        emitter.emit(event, ...args)
     }
 
     async loginGithub() {

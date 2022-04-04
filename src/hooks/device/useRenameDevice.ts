@@ -5,10 +5,7 @@ import {useGlobalStore} from "@/edge/popup/useGlobal";
 export function useRenameDevice() {
     const store = useGlobalStore();
     const {run} = useRequest("/device/rename", {
-        method: "post",
-        data: {
-            token: store.token,
-        }
+        method: "post"
     });
 
 

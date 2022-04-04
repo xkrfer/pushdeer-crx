@@ -1,10 +1,10 @@
 <template>
-  <div class="py-[24px] px-[12px] h-full">
+  <div class="pb-[24px] pt-[12px] px-[12px] h-full" v-loading="listLoading">
     <div class="flex justify-between items-center text-[24px] pb-[12px]">
       <h3 class="font-bold">设备</h3>
       <el-button type="primary" class="!bg-[#343e7e] !border-[#343e7e]" @click="addDevice">新增</el-button>
     </div>
-    <div class="mt-[12px]">
+    <el-scrollbar height="492px">
       <div class="device" v-for="device in devices" :key="device.id">
         <div class="box relative">
           <div class="flex items-center">
@@ -28,19 +28,19 @@
           </div>
         </div>
       </div>
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {useGetDeviceList} from "@/hooks/useGetDeviceList";
-import {useGetFingerprint} from "@/hooks/useGetFingerprint";
-import {useCreateDevice} from "@/hooks/useCreateDevice";
+import {useGetDeviceList} from "@/hooks/device/useGetDeviceList";
+import {useGetFingerprint} from "@/hooks/device/useGetFingerprint";
+import {useCreateDevice} from "@/hooks/device/useCreateDevice";
 import {useGlobalStore} from "@/edge/popup/useGlobal";
 import {storeToRefs} from "pinia";
 import {ElMessage} from "element-plus";
-import {useRemoveDevice} from "@/hooks/useRemoveDevice";
-import {useRenameDevice} from "@/hooks/useRenameDevice";
+import {useRemoveDevice} from "@/hooks/device/useRemoveDevice";
+import {useRenameDevice} from "@/hooks/device/useRenameDevice";
 
 const store = useGlobalStore()
 
@@ -48,7 +48,7 @@ const {devices, device_id} = storeToRefs(store)
 
 useGetFingerprint()
 
-const {listDevice} = useGetDeviceList()
+const {listDevice, listLoading} = useGetDeviceList()
 
 const {createDevice} = useCreateDevice()
 
@@ -90,7 +90,7 @@ const rename = async (id: number) => {
 }
 
 .device-remove {
-  width: 300px!important;
+  width: 300px !important;
 }
 
 </style>

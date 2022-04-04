@@ -5,10 +5,7 @@ export function useRemoveDevice() {
     const store = useGlobalStore();
 
     const {run} = useRequest("/device/remove", {
-        method: "POST",
-        data: {
-            token: store.token,
-        }
+        method: "POST"
     })
 
     return {
