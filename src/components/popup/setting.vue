@@ -20,6 +20,6 @@ const {userInfo} = useGlobalStore()
 
 <style lang="less">
 .setting {
-  padding-top: 24px;
+  padding: 24px 12px 0;
 }
 </style>

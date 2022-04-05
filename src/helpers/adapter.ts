@@ -1,4 +1,5 @@
 import {ENDPOINT, GITHUB} from "@/helpers/constants";
+import {Message} from "@/helpers/message";
 
 class Adapter {
 
@@ -44,6 +45,31 @@ class Adapter {
     async loginGithub() {
         const data = await this.getStorage([ENDPOINT, GITHUB])
         await chrome.tabs.create({url: `https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`})
+    }
+
+    async setBadge(text: string = "new") {
+        if (import.meta.env.DEV) return
+        await chrome.action.setBadgeText({text})
+        await chrome.action.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
+    }
+
+    async clearBadge() {
+        if (import.meta.env.DEV) return
+        await chrome.action.setBadgeText({text: ""})
+    }
+
+    emit(message: Message) {
+        if (import.meta.env.DEV) return
+        chrome.runtime.sendMessage(message, (response) => {
+            console.log('emit response', response)
+        })
+    }
+
+    on(callback: (message: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) => void) {
+        if (import.meta.env.DEV) return
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            callback(message, sender, sendResponse)
+        })
     }
 
     static getInstance() {

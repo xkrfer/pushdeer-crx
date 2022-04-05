@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
-import {ElMessage} from "element-plus";
 
 export const Utils = {
-    format(date?: string | number | Date | dayjs.Dayjs | null | undefined) {
-        return dayjs(date).format("YYYY/MM/DD");
+    format(date: string | number | Date | dayjs.Dayjs | null | undefined = new Date(), formatStr: string = "YYYY/MM/DD"): string {
+        return dayjs(date).format(formatStr)
     }
 }

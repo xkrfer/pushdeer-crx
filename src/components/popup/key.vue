@@ -24,7 +24,7 @@
             <el-button type="primary" @click="copy(key.key)">复制</el-button>
           </div>
         </div>
-        <div class="absolute right-[28px] top-0">
+        <div class="absolute right-[10px] top-0">
           <el-popconfirm title="确认删除此Key?" confirm-button-text="确定"
                          @confirm="remove(key.id)"
                          cancel-button-text="取消">

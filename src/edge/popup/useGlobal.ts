@@ -25,7 +25,8 @@ export const useGlobalStore = defineStore<'global', {
     mounted: boolean,
     device_id: string,
     devices: any[],
-    pushkeys: string[]
+    pushkeys: string[],
+    messageRandom: number,
 }, any, any>("global", {
     state() {
         return {
@@ -36,7 +37,8 @@ export const useGlobalStore = defineStore<'global', {
             mounted: false,
             device_id: "",
             devices: [],
-            pushkeys: []
+            pushkeys: [],
+            messageRandom: 0,
         }
     },
     actions: {

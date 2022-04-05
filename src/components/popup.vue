@@ -4,7 +4,15 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import {CONNECT_NAME} from "@/helpers/constants";
+
+if (import.meta.env.PROD) {
+  chrome.runtime.connect({name: CONNECT_NAME});
+}
+
+
+</script>
 
 <style lang="less">
 .popup {

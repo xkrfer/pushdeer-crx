@@ -40,7 +40,7 @@ export const router = createRouter({
                 {
                     path: "user",
                     name: "User",
-                    redirect: "/user/setting",
+                    redirect: "/user/message",
                     component: UserLayout,
                     children: [
                         {

@@ -14,8 +14,8 @@
           }"></span>
             <span>{{ device.name }}</span>
           </div>
-          <span v-if="device.device_id === device_id">(当前设备)</span>
-          <div class="operate absolute hidden right-[-24px] flex-col right-[-24px]">
+          <span v-if="device.device_id === device_id" class="pr-[25px]">(当前设备)</span>
+          <div class="operate absolute flex flex-col  right-[5px] ">
             <span class="iconfont icon-bianji text-[18px] cursor-pointer hover:text-[#313d7d]"
                   @click="rename(device.id)"></span>
             <el-popconfirm title="确认删除此设备?" confirm-button-text="确定"
@@ -84,13 +84,6 @@ const rename = async (id: number) => {
 </script>
 
 <style lang="less">
-.device {
-  &:hover {
-    .operate {
-      display: flex;
-    }
-  }
-}
 
 .device-remove {
   width: 300px !important;

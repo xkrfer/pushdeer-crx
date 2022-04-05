@@ -26,9 +26,9 @@ interface ITab {
 
 const Tabs: ITab[] = [
   {
-    name: "消息",
-    path: "Message",
-    icon: "icon-xiaoxi"
+    name: '消息',
+    path: 'Message',
+    icon: ''
   },
   {
     name: "设备",
@@ -71,17 +71,20 @@ const onTabChange = (tab: ITab) => {
   background: url("../../assets/deer.png") 100% no-repeat;
   height: 100%;
   width: 100%;
+
   .tab-box {
     display: flex;
     background: #f6f5f6;
     font-size: 14px;
     position: relative;
     z-index: 10;
+
     .tab {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+
       &.active {
         color: #313d7d;
       }
@@ -94,6 +97,13 @@ const onTabChange = (tab: ITab) => {
         margin-right: 5px;
       }
     }
+  }
+}
+
+.badge {
+  :deep(.el-badge__content) {
+    color: var(--el-color-danger);
+    overflow: hidden;
   }
 }
 </style>
