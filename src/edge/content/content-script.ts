@@ -8,15 +8,8 @@ export enum MessageType {
 }
 
 function main() {
-    document.addEventListener("__PUSH_DEER_TOKEN__", (e: any) => {
-        const token = e.detail.token
-        chrome.runtime.sendMessage({
-            type: MessageType.GET_BACKGROUND_CHROME_ID,
-            data: {
-                token,
-                origin: window.location.origin
-            }
-        });
+    document.addEventListener("__PUSH_DEER_TOKEN__", () => {
+        chrome.runtime.sendMessage({type: MessageType.GET_BACKGROUND_CHROME_ID});
     })
     connect_to_background()
 }

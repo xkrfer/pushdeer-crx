@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {ElMessage} from "element-plus";
 import {UNAUTHORIZED_CODE} from "@/helpers/constants";
+import {router} from "@/edge/popup/router";
 
 const service = axios.create({
     timeout: 2000, // 超时时间
@@ -15,16 +16,26 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
     async (response) => {
-        if (response.data.code == 0) return response.data
+        if (response.data?.code == 0) return response.data
         ElMessage.error(response.data.error);
-        if (response.data.code === UNAUTHORIZED_CODE) {
-           window.location.href = "/login"
+        if (response.data?.code === UNAUTHORIZED_CODE) {
+            await router.push({
+                name: "Login"
+            })
+            return
         }
         return response.data
     },
     (error) => {
-        if (error.response) {
-            ElMessage.error(error.message)
+        const message = error.message
+        if (message) {
+            if (message.includes('Network Error')) {
+                ElMessage.error('请检查endpoint是否正确！')
+            } else {
+                ElMessage.error(error.message)
+            }
+        } else {
+            ElMessage.error('网络错误请重试')
         }
         return Promise.reject(error);
     },

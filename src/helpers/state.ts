@@ -8,11 +8,23 @@ export class State {
     private last_id: number
     private endpoint: string
     private popup_open: boolean
+    private polling: boolean
+
     constructor() {
         this.token = ''
         this.last_id = 0
         this.endpoint = ''
         this.popup_open = false
+        this.polling = false
+    }
+
+
+    clear() {
+        this.token = ''
+        this.last_id = 0
+        this.endpoint = ''
+        this.popup_open = false
+        this.polling = false
     }
 
     async getToken(): Promise<string> {
@@ -61,8 +73,19 @@ export class State {
     }
 
     setPopupOpen(open: boolean): void {
-        console.log('popup_open', open)
         this.popup_open = open
+    }
+
+    setPolling(polling: boolean): void {
+        this.polling = polling
+    }
+
+    getPolling(): boolean {
+        return this.polling
+    }
+
+    async setLoginBadge() {
+        await adapter.setBadge('login', [75, 75, 75, 1])
     }
 
     static getInstance(): State {

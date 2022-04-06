@@ -1,7 +1,9 @@
 import {defineStore} from "pinia";
 import {adapter} from "@/helpers/adapter";
-import {ENDPOINT, GITHUB, TOKEN, DEVICE_ID} from "@/helpers/constants";
+import {DEVICE_ID, ENDPOINT, GITHUB, TOKEN} from "@/helpers/constants";
 import {request} from "@/helpers/request";
+import {ElMessage} from "element-plus";
+import {MessageType} from "@/helpers/message";
 
 type IKey = typeof ENDPOINT | typeof GITHUB | typeof TOKEN | typeof DEVICE_ID;
 
@@ -55,20 +57,46 @@ export const useGlobalStore = defineStore<'global', {
             this.device_id = data[DEVICE_ID]
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = "1622adf32458455b805e4e1fd38b4a2d"
+                this.token = "97e63159f2934a35a3508cbd5ecd1785"
             }
         },
         async getUserInfo(): Promise<any> {
+            if (!this.endpoint) {
+                ElMessage.error("请先配置服务器地址")
+                return false
+            }
             const data = await request({
                 url: `${this.endpoint}/user/info`,
                 method: "POST",
                 data: {
                     token: this.token
                 }
+            }).catch(async () => {
+                await adapter.setStorage(TOKEN, "")
             })
             // @ts-ignore
-            this.userInfo = data.content
-            return data
+            if (data?.code === 0) {
+                // @ts-ignore
+                this.userInfo = data.content
+            }
+
+            return !!data
+        },
+
+        async clear() {
+            this.endpoint = ""
+            this.github = ""
+            this.token = ""
+            this.userInfo = undefined
+            this.mounted = false
+            this.device_id = ""
+            this.devices = []
+            this.pushkeys = []
+            this.messageRandom = 0
+            await adapter.clearStorage()
+            await adapter.emit({
+                type: MessageType.CLEAR
+            })
         }
     },
 })

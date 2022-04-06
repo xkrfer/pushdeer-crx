@@ -15,8 +15,9 @@
 
 <script lang="ts" setup>
 
-import {ref} from "vue";
+import {onBeforeMount, ref} from "vue";
 import {useNavigation} from "@/hooks/useNavigation";
+import {useGlobalStore} from "@/edge/popup/useGlobal";
 
 interface ITab {
   name: string;

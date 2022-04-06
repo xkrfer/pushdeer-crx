@@ -1,5 +1,6 @@
 import {ENDPOINT, GITHUB} from "@/helpers/constants";
 import {Message} from "@/helpers/message";
+import logo from "@/assets/logo.png"
 
 class Adapter {
 
@@ -42,15 +43,27 @@ class Adapter {
         })
     }
 
-    async loginGithub() {
-        const data = await this.getStorage([ENDPOINT, GITHUB])
-        await chrome.tabs.create({url: `https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`})
+    async clearStorage() {
+        if (import.meta.env.DEV) {
+            localStorage.clear()
+            return
+        }
+        await chrome.storage.local.clear()
     }
 
-    async setBadge(text: string = "new") {
+    async loginGithub() {
+        const data = await this.getStorage([ENDPOINT, GITHUB])
+        const url = `https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`
+        if (import.meta.env.DEV) {
+            return window.open(url)
+        }
+        await chrome.tabs.create({url})
+    }
+
+    async setBadge(text: string = "new", color: [number, number, number, number] = [255, 0, 0, 255]) {
         if (import.meta.env.DEV) return
         await chrome.action.setBadgeText({text})
-        await chrome.action.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
+        await chrome.action.setBadgeBackgroundColor({color});
     }
 
     async clearBadge() {
@@ -70,6 +83,15 @@ class Adapter {
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             callback(message, sender, sendResponse)
         })
+    }
+
+    async notifications(message: string) {
+        chrome.notifications.create({
+            type: "basic",
+            iconUrl: logo,
+            title: "有新消息啦！",
+            message
+        });
     }
 
     static getInstance() {

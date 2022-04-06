@@ -9,7 +9,8 @@ export enum MessageType {
     PING = 'PING',
     PONG = 'PONG',
     POPUP_OPEN = 'POPUP_OPEN',
-    POPUP_CLOSE = 'POPUP_CLOSE'
+    POPUP_CLOSE = 'POPUP_CLOSE',
+    CLEAR = 'CLEAR',
 }
 
 // 监听来自content-script的消息

@@ -78,20 +78,12 @@ export const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const store = useGlobalStore()
     await store.init()
-    if (!store.endpoint) {
-        next({
-            name: "Login"
-        })
-    } else {
-        if (!store.userInfo) {
-            await store.getUserInfo()
-        }
-        if (to.path.startsWith("/login")) {
-            next({
-                name: "User"
-            })
-        } else {
-            next()
+    if (!to.path.startsWith('/login')) {
+        const d = await store.getUserInfo()
+        if (!d) {
+            next('/login')
+            return
         }
     }
+    next()
 });

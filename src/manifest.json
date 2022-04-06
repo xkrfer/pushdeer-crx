@@ -35,7 +35,8 @@
   },
   "background": {
     "service_worker": "background/background.js",
-    "type": "module"
+    "type": "module",
+    "presistent": true
   },
   "options_ui": {
     "page": "options/options.html",

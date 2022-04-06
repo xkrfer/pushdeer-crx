@@ -10,7 +10,7 @@ export function useGetDeviceList() {
     const list = () => {
         listDevice.run().then(res => {
             store.$patch({
-                devices: res.content.devices
+                devices: res?.content?.devices ?? []
             })
         })
     }
