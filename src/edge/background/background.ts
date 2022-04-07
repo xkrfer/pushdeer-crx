@@ -43,11 +43,6 @@ adapter.on((message, sender, sendResponse) => {
             State.getInstance().setPopupOpen(false)
             sendResponse('background:ok')
             break
-        case MessageType.PING:
-            sendResponse({
-                type: MessageType.PONG
-            })
-            break
         case MessageType.CLEAR:
             sendResponse('background:ok')
             State.getInstance().clear()

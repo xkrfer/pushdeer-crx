@@ -24,13 +24,14 @@
           <div class="message-info py-[5px] px-[15px]">
             <div class="flex items-center">
               <h3 class="font-bold text-[16px] flex-1 mr-[5px] line-clamp-1">{{ message.text }}</h3>
-              <el-button type="text" plain >查看详情</el-button>
+              <el-button type="text" plain @click.stop="openInfo(message)">查看详情</el-button>
             </div>
-            <p class="line-clamp-3">{{ message.desp }}</p>
+            <p class="line-clamp-5" v-html="message.html"></p>
           </div>
         </li>
       </ul>
     </div>
+    <message-info ref="InfoRef"/>
   </div>
 </template>
 
@@ -38,7 +39,10 @@
 import {useGetMessageList} from "@/hooks/message/useGetMessageList";
 import avatar from "@/assets/avatar.png";
 import {adapter} from "@/helpers/adapter";
+import MessageInfo from "@/components/popup/message-info.vue";
+import {ref} from "vue";
 
+const InfoRef = ref()
 adapter.clearBadge()
 
 const {getMessageList, list, disabled, page, keyword} = useGetMessageList()
@@ -50,6 +54,13 @@ const search = async () => {
   page.value = 1
   list.value = []
   await getMessageList()
+}
+
+const openInfo = (message: any) => {
+  const {type, text, date, html} = message
+  InfoRef.value.openDrawer({
+    type, text, date, html
+  })
 }
 
 </script>

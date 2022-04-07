@@ -11,19 +11,6 @@ function main() {
     document.addEventListener("__PUSH_DEER_TOKEN__", () => {
         chrome.runtime.sendMessage({type: MessageType.GET_BACKGROUND_CHROME_ID});
     })
-    connect_to_background()
-}
-
-function connect_to_background() {
-    chrome.runtime.sendMessage({
-        type: MessageType.PING
-    }, (message) => {
-        if (message.type === MessageType.PONG) {
-            setTimeout(() => {
-                connect_to_background()
-            }, 1000)
-        }
-    });
 }
 
 main()

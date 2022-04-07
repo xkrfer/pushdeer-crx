@@ -38,10 +38,6 @@
     "type": "module",
     "presistent": true
   },
-  "options_ui": {
-    "page": "options/options.html",
-    "open_in_tab": true
-  },
   "content_scripts": [
     {
       "matches": [

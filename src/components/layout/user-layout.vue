@@ -72,7 +72,6 @@ const onTabChange = (tab: ITab) => {
   background: url("../../assets/deer.png") 100% no-repeat;
   height: 100%;
   width: 100%;
-
   .tab-box {
     display: flex;
     background: #f6f5f6;

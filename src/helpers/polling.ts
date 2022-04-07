@@ -18,7 +18,7 @@ export async function polling() {
         if (response?.code === 0) {
             if (await state.getLastId() !== response.content.id) {
                 await state.setLastId(response.content.id)
-                if (response.content !== 0) {
+                if (response.content.id !== 0) {
                     await adapter.setBadge()
                     await adapter.notifications(response.content.text)
                 } else {
