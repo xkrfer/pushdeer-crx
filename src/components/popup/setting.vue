@@ -8,6 +8,10 @@
       <span>API endpoint</span>
       <el-button type="primary" class="!bg-[#343e7e] !border-[#343e7e]" @click="reset">重置</el-button>
     </div>
+    <div class="box">
+      <span>项目地址（GitHub） </span>
+      <el-button type="primary" class="!bg-[#343e7e] !border-[#343e7e]" @click="openUrl">前往</el-button>
+    </div>
   </div>
 </template>
 
@@ -15,6 +19,7 @@
 import {useGlobalStore} from "@/edge/popup/useGlobal";
 import {storeToRefs} from "pinia";
 import {useNavigation} from "@/hooks/useNavigation";
+import {adapter} from "@/helpers/adapter";
 
 const store = useGlobalStore()
 const {userInfo} = storeToRefs(store)
@@ -34,6 +39,9 @@ const reset = () => {
   })
 }
 
+const openUrl = () => {
+  adapter.openUrl("https://github.com/xkrfer/pushdeer-crx")
+}
 
 </script>
 

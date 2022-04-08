@@ -54,6 +54,10 @@ class Adapter {
     async loginGithub() {
         const data = await this.getStorage([ENDPOINT, GITHUB])
         const url = `https://github.com/login/oauth/authorize?client_id=${data[GITHUB]}&redirect_uri=${data[ENDPOINT]}/login/github`
+        await this.openUrl(url)
+    }
+
+    async openUrl(url: string) {
         if (import.meta.env.DEV) {
             return window.open(url)
         }

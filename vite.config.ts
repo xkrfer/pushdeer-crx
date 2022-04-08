@@ -45,7 +45,6 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 popup: root("/edge/popup/popup.html"),
-                options: root("/edge/options/options.html"),
                 background: root("/edge/background/background.ts"),
                 content: root("/edge/content/content-script.ts")
             },
