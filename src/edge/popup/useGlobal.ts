@@ -57,7 +57,7 @@ export const useGlobalStore = defineStore<'global', {
             this.device_id = data[DEVICE_ID]
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = "c6950aca1483411abfa4a2ecb56b14e3"
+                this.token = "8f7ee23b9e194b43988ab667ee34754d"
             }
         },
         async getUserInfo(): Promise<any> {

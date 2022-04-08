@@ -56,8 +56,8 @@ useGetKeyList()
 
 <style lang="less" scoped>
 textarea {
-  box-shadow: rgb(220, 223, 230) 0px 0px 0px 1px inset;
-  height: 270px;
+  box-shadow: rgb(220, 223, 230) 0 0 0 1px inset;
+  height: 250px;
   resize: none;
   &:hover {
     box-shadow: 0 0 0 1px #c0c4cc inset;
