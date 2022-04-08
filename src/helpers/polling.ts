@@ -11,11 +11,8 @@ export async function polling() {
         state.setPolling(false)
         await State.getInstance().setLoginBadge()
     } else {
-        const response = await request(`/message/ping?token=${token}`).catch(() => {
-            console.error('ping error');
-            state.setPolling(false)
-        })
-        if (response?.code === 0) {
+        const response = await ping(token)
+        if (response && response.content) {
             if (await state.getLastId() !== response.content.id) {
                 await state.setLastId(response.content.id)
                 if (response.content.id !== 0) {
@@ -25,11 +22,19 @@ export async function polling() {
                     await adapter.clearBadge()
                 }
             }
-        } else {
-            state.setPolling(false)
         }
     }
     if (state.getPolling()) {
         setTimeout(polling, 1000)
     }
+}
+
+export async function ping(token: any) {
+    const res = await request(`/message/ping?token=${token}`).catch(() => {
+        console.error('ping error');
+        State.getInstance().setPolling(false)
+    })
+    if (res?.code === 0) return res
+    State.getInstance().setPolling(false)
+    return false
 }

@@ -1,6 +1,6 @@
 {
-  "description": "pushdeer-node Client for Edge and Chrome",
-  "name": "pushdeer-node 浏览器插件 ",
+  "description": "client for pushdeer-node",
+  "name": "pushdeer-node-client",
   "manifest_version": 3,
   "version": "1.0.0",
   "author": "xkrfer <xkrfer@gmail.com>",
@@ -12,10 +12,7 @@
   },
   "permissions": [
     "storage",
-    "activeTab",
-    "storage",
     "tabs",
-    "cookies",
     "notifications"
   ],
   "host_permissions": [

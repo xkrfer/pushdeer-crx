@@ -1,9 +1,9 @@
 // 插件id
 import {MessageType, receiveMessageFromContent} from "@/helpers/message";
-import {polling} from "@/helpers/polling";
+import {ping, polling} from "@/helpers/polling";
 import {State} from "@/helpers/state";
 import {adapter} from "@/helpers/adapter";
-import {CONNECT_NAME, TOKEN} from "@/helpers/constants";
+import {CONNECT_NAME} from "@/helpers/constants";
 
 const CHROME_ID = chrome.runtime.id
 
@@ -11,24 +11,25 @@ receiveMessageFromContent(async (message, sendResponse) => {
     switch (message.type) {
         case MessageType.GET_BACKGROUND_CHROME_ID:
             sendResponse(CHROME_ID)
-            await handlerToken()
+            await handlerToken(message.data)
             break
         default:
             break
     }
 })
 
+
 // 处理token
-async function handlerToken() {
-    const endpoint = await State.getInstance().getEndpoint()
-    const response = await chrome.cookies.getAll({url: endpoint, name: TOKEN})
-    if (response && response.length > 0) {
-        const token = response[0]?.value
-        if (token) {
-            await State.getInstance().setToken(token)
+async function handlerToken(data: { token: string, origin: string }) {
+    if (data?.token && data?.origin) {
+        const endpoint = await State.getInstance().getEndpoint()
+        if (data.origin === endpoint) {
+            const res = await ping(data.token)
+            if (res) {
+                await State.getInstance().setToken(data.token)
+                await adapter.clearBadge()
+            }
         }
-    } else {
-        await adapter.clearBadge()
     }
 }
 
