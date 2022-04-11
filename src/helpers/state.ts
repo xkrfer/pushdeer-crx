@@ -9,6 +9,7 @@ export class State {
     private endpoint: string
     private popup_open: boolean
     private polling: boolean
+    private pin: string
 
     constructor() {
         this.token = ''
@@ -16,6 +17,7 @@ export class State {
         this.endpoint = ''
         this.popup_open = false
         this.polling = false
+        this.pin = ''
     }
 
 
@@ -66,6 +68,13 @@ export class State {
             this.endpoint = await adapter.getStorage('endpoint')
         }
         return this.endpoint
+    }
+
+    async getPin(): Promise<string> {
+        if (this.pin === undefined) {
+            this.pin = await adapter.getStorage('pin')
+        }
+        return this.pin
     }
 
     getPopupOpen(): boolean {

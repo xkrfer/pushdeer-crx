@@ -50,7 +50,7 @@ const onSave = (formEl: FormInstance | undefined) => {
         const {endpoint} = form
         store.set(ENDPOINT, endpoint)
         ElMessage.success('保存成功')
-        routerTo({
+        await routerTo({
           name: "Login"
         })
       }

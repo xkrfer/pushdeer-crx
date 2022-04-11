@@ -6,7 +6,7 @@ import {adapter} from "@/helpers/adapter";
 import {CONNECT_NAME} from "@/helpers/constants";
 
 const CHROME_ID = chrome.runtime.id
-
+let LOCKED = true
 receiveMessageFromContent(async (message, sendResponse) => {
     switch (message.type) {
         case MessageType.GET_BACKGROUND_CHROME_ID:
@@ -37,16 +37,18 @@ async function handlerToken(data: { token: string, origin: string }) {
 adapter.on((message, sender, sendResponse) => {
     switch (message.type) {
         case MessageType.POPUP_OPEN:
-            State.getInstance().setPopupOpen(true)
             sendResponse('background:ok')
             break
         case MessageType.POPUP_CLOSE:
-            State.getInstance().setPopupOpen(false)
             sendResponse('background:ok')
             break
         case MessageType.CLEAR:
             sendResponse('background:ok')
             State.getInstance().clear()
+            break
+        case MessageType.PIN_PASS:
+            sendResponse('background:ok')
+            LOCKED = false
             break
         default:
             break
@@ -59,6 +61,11 @@ chrome.runtime.onConnect.addListener(function (port) {
         // 如果连接成功，则开始polling
         polling().then()
         State.getInstance().setPopupOpen(true)
+        // 通知锁的状态
+        adapter.emit({
+            type: MessageType.PIN_STATE,
+            data: LOCKED
+        })
         port.onDisconnect.addListener(function () {
             State.getInstance().setPopupOpen(false)
         });

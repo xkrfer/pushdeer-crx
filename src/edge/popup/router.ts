@@ -10,6 +10,7 @@ import Push from "@/components/popup/push.vue"
 import BlankLayout from "@/components/layout/blank-layout.vue";
 import UserLayout from "@/components/layout/user-layout.vue";
 import {useGlobalStore} from "@/edge/popup/useGlobal";
+import Locked from "@/components/popup/locked.vue";
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -69,6 +70,11 @@ export const router = createRouter({
                             component: Setting
                         }
                     ]
+                },
+                {
+                    path: "locked",
+                    name: "Locked",
+                    component: Locked,
                 }
             ]
         }
@@ -79,11 +85,23 @@ router.beforeEach(async (to, from, next) => {
     const store = useGlobalStore()
     await store.init()
     if (!to.path.startsWith('/login')) {
+        if (to.path === '/locked') {
+            if (!store.pin) {
+                next('/user')
+            } else {
+                next()
+            }
+            return
+        }
         const d = await store.getUserInfo()
         if (!d) {
+            await store.set('token', undefined)
             next('/login')
             return
         }
+    } else if (store.token) {
+        next('/user')
+        return
     }
     next()
 });

@@ -11,6 +11,8 @@ export enum MessageType {
     POPUP_OPEN = 'POPUP_OPEN',
     POPUP_CLOSE = 'POPUP_CLOSE',
     CLEAR = 'CLEAR',
+    PIN_STATE = 'PIN_STATE',
+    PIN_PASS = 'PIN_PASS',
 }
 
 // 监听来自content-script的消息

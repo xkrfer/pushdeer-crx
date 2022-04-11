@@ -1,6 +1,8 @@
 import {ENDPOINT, GITHUB} from "@/helpers/constants";
 import {Message} from "@/helpers/message";
 import logo from "@/assets/logo.png"
+// @ts-ignore
+import md5 from "md5";
 
 class Adapter {
 
@@ -103,6 +105,10 @@ class Adapter {
             this.instance = new Adapter()
         }
         return this.instance
+    }
+
+    md5(message: string) {
+        return md5(message)
     }
 }
 

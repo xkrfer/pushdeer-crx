@@ -1,11 +1,11 @@
 import {defineStore} from "pinia";
 import {adapter} from "@/helpers/adapter";
-import {DEVICE_ID, ENDPOINT, GITHUB, TOKEN} from "@/helpers/constants";
+import {DEVICE_ID, ENDPOINT, GITHUB, PIN, TOKEN} from "@/helpers/constants";
 import {request} from "@/helpers/request";
 import {ElMessage} from "element-plus";
 import {MessageType} from "@/helpers/message";
 
-type IKey = typeof ENDPOINT | typeof GITHUB | typeof TOKEN | typeof DEVICE_ID;
+type IKey = typeof ENDPOINT | typeof GITHUB | typeof TOKEN | typeof DEVICE_ID | typeof PIN
 
 export interface IUser {
     id: number;
@@ -29,6 +29,8 @@ export const useGlobalStore = defineStore<'global', {
     devices: any[],
     pushkeys: string[],
     messageRandom: number,
+    pin: string,
+    passed: boolean
 }, any, any>("global", {
     state() {
         return {
@@ -41,6 +43,8 @@ export const useGlobalStore = defineStore<'global', {
             devices: [],
             pushkeys: [],
             messageRandom: 0,
+            pin: '',
+            passed: false
         }
     },
     actions: {
@@ -50,14 +54,18 @@ export const useGlobalStore = defineStore<'global', {
         },
         async init() {
             if (this.mounted) return
-            const data = await adapter.getStorage([ENDPOINT, GITHUB, TOKEN])
+            const data = await adapter.getStorage([ENDPOINT, GITHUB, TOKEN, DEVICE_ID, PIN])
             this.endpoint = data[ENDPOINT]
             this.github = data[GITHUB]
             this.token = data[TOKEN]
             this.device_id = data[DEVICE_ID]
+            this.pin = data[PIN]
+            if (this.pin) {
+                this.passed = false
+            }
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = "8f7ee23b9e194b43988ab667ee34754d"
+                this.token = "6e48a9edc5e64f92b9bd7c97fd470019"
             }
         },
         async getUserInfo(): Promise<any> {
@@ -93,6 +101,7 @@ export const useGlobalStore = defineStore<'global', {
             this.devices = []
             this.pushkeys = []
             this.messageRandom = 0
+            this.pin = ''
             await adapter.clearStorage()
             await adapter.emit({
                 type: MessageType.CLEAR
