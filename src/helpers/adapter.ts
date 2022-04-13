@@ -86,9 +86,14 @@ class Adapter {
 
     on(callback: (message: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) => void) {
         if (import.meta.env.DEV) return
-        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-            callback(message, sender, sendResponse)
-        })
+        try {
+            chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+                callback(message, sender, sendResponse)
+            })
+        } catch (e) {
+            console.log('chrome error', chrome.runtime.lastError?.message)
+        }
+
     }
 
     async notifications(message: string) {

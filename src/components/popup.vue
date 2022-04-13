@@ -1,7 +1,5 @@
 <template>
-  <div class="popup">
-    <router-view/>
-  </div>
+  <router-view/>
 </template>
 
 <script lang="ts" setup>
@@ -35,8 +33,8 @@ adapter.on((message, sender, sendResponse) => {
 </script>
 
 <style lang="less">
-.popup {
-  height: 600px;
+#app {
+  height: 100vh;
   width: 375px;
   font-size: 14px;
   font-family: Avenir, Helvetica, Arial, sans-serif;

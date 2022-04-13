@@ -41,11 +41,12 @@ import avatar from "@/assets/avatar.png";
 import {adapter} from "@/helpers/adapter";
 import MessageInfo from "@/components/popup/message-info.vue";
 import {ref} from "vue";
+import {MessageType} from "@/helpers/message";
 
 const InfoRef = ref()
 adapter.clearBadge()
 
-const {getMessageList, list, disabled, page, keyword} = useGetMessageList()
+const {getMessageList, list, disabled, page, keyword, refresh} = useGetMessageList()
 const load = async () => {
   if (disabled.value) return
   await getMessageList()
@@ -62,6 +63,14 @@ const openInfo = (message: any) => {
     type, text, date, html
   })
 }
+
+adapter.on((message, sender, sendResponse) => {
+  if (message.type === MessageType.REFRESH) {
+    refresh()
+    adapter.clearBadge()
+  }
+  sendResponse('ok')
+})
 
 </script>
 

@@ -31,12 +31,22 @@ export function useGetMessageList() {
             })
         }
     }
+
+    const refresh = async () => {
+        page.value = 1
+        totalPage.value = 1
+        list.value = []
+        keyword.value = ""
+        await getMessageList()
+    }
+
     return {
         getMessageList,
         list,
         page,
         keyword,
         loading,
+        refresh,
         disabled: computed(() => {
             return totalPage.value < page.value
         })

@@ -13,6 +13,7 @@ export enum MessageType {
     CLEAR = 'CLEAR',
     PIN_STATE = 'PIN_STATE',
     PIN_PASS = 'PIN_PASS',
+    REFRESH = 'REFRESH',
 }
 
 // 监听来自content-script的消息

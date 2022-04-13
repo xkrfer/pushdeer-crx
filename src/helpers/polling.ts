@@ -1,6 +1,7 @@
 import {adapter} from "@/helpers/adapter";
 import {request} from "@/helpers/native-request";
 import {State} from "@/helpers/state";
+import {MessageType} from "@/helpers/message";
 
 export async function polling() {
     const state = State.getInstance()
@@ -18,6 +19,7 @@ export async function polling() {
                 if (response.content.id !== 0) {
                     await adapter.setBadge()
                     await adapter.notifications(response.content.text)
+                    await refresh()
                 } else {
                     await adapter.clearBadge()
                 }
@@ -37,4 +39,14 @@ export async function ping(token: any) {
     if (res?.code === 0) return res
     State.getInstance().setPolling(false)
     return false
+}
+
+
+async function refresh() {
+    if (State.getInstance().getPopupOpen()) {
+        await adapter.emit({
+            type: MessageType.REFRESH
+        })
+    }
+    return true
 }
