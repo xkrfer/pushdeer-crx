@@ -57,9 +57,11 @@ adapter.on((message, sender, sendResponse) => {
 
 chrome.runtime.onConnect.addListener(function (port) {
     if (port.name === CONNECT_NAME) {
-        State.getInstance().setPolling(true)
-        // 如果连接成功，则开始polling
-        polling().then()
+        if(!State.getInstance().getPolling()){
+            State.getInstance().setPolling(true)
+            // 如果连接成功，则开始polling
+            polling().then()
+        }
         State.getInstance().setPopupOpen(true)
         // 通知锁的状态
         adapter.emit({
@@ -78,4 +80,5 @@ chrome.runtime.onConnect.addListener(function (port) {
     if (!token) {
         await State.getInstance().setLoginBadge()
     }
+    await polling()
 })()

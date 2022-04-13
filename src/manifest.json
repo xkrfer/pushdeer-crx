@@ -1,6 +1,6 @@
 {
   "description": "client for pushdeer-node",
-  "name": "pushdeer-node-client",
+  "name": "pushdeer-node 客户端",
   "manifest_version": 3,
   "version": "1.0.0",
   "author": "xkrfer <xkrfer@gmail.com>",

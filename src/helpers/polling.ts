@@ -36,7 +36,10 @@ export async function ping(token: any) {
         console.error('ping error');
         State.getInstance().setPolling(false)
     })
-    if (res?.code === 0) return res
+    if (res?.code === 0){
+        State.getInstance().setPolling(true)
+        return res
+    }
     State.getInstance().setPolling(false)
     return false
 }
