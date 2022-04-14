@@ -91,7 +91,7 @@ export const useGlobalStore = defineStore<'global', {
             return !!data
         },
 
-        async clear() {
+        async reset() {
             this.endpoint = ""
             this.github = ""
             this.token = ""
@@ -106,6 +106,11 @@ export const useGlobalStore = defineStore<'global', {
             await adapter.emit({
                 type: MessageType.CLEAR
             })
+        },
+        async logout(){
+            const endpoint = this.endpoint
+            await this.reset()
+            await this.set(ENDPOINT, endpoint)
         }
     },
 })

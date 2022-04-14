@@ -35,14 +35,14 @@ const {routerTo} = useNavigation()
 const pin = ref(!!store.pin)
 
 const logout = () => {
-  store.clear()
+  store.logout()
   routerTo({
     name: "Login"
   })
 }
 
 const reset = () => {
-  store.clear()
+  store.reset()
   routerTo({
     name: "Init"
   })

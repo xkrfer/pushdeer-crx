@@ -62,7 +62,7 @@ const open = () => {
       }
   )
       .then(async () => {
-        await store.clear()
+        await store.logout()
         ElMessage({
           type: 'success',
           message: '注销成功！',
