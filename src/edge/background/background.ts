@@ -4,6 +4,7 @@ import {ping, polling} from "@/helpers/polling";
 import {State} from "@/helpers/state";
 import {adapter} from "@/helpers/adapter";
 import {CONNECT_NAME} from "@/helpers/constants";
+import {initPush} from "@/edge/background/sw-push";
 
 const CHROME_ID = chrome.runtime.id
 let LOCKED = true
@@ -74,11 +75,11 @@ chrome.runtime.onConnect.addListener(function (port) {
     }
 });
 
-
 (async () => {
     const token = await State.getInstance().getToken()
     if (!token) {
         await State.getInstance().setLoginBadge()
     }
     await polling()
+    await initPush()
 })()
