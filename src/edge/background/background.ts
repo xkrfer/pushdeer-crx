@@ -1,6 +1,5 @@
 // 插件id
 import {MessageType, receiveMessageFromContent} from "@/helpers/message";
-import {ping, polling} from "@/helpers/polling";
 import {State} from "@/helpers/state";
 import {adapter} from "@/helpers/adapter";
 import {CONNECT_NAME} from "@/helpers/constants";
@@ -25,11 +24,7 @@ async function handlerToken(data: { token: string, origin: string }) {
     if (data?.token && data?.origin) {
         const endpoint = await State.getInstance().getEndpoint()
         if (data.origin === endpoint) {
-            const res = await ping(data.token)
-            if (res) {
-                await State.getInstance().setToken(data.token)
-                await adapter.clearBadge()
-            }
+            await State.getInstance().setToken(data.token)
         }
     }
 }
@@ -58,11 +53,6 @@ adapter.on((message, sender, sendResponse) => {
 
 chrome.runtime.onConnect.addListener(function (port) {
     if (port.name === CONNECT_NAME) {
-        if(!State.getInstance().getPolling()){
-            State.getInstance().setPolling(true)
-            // 如果连接成功，则开始polling
-            polling().then()
-        }
         State.getInstance().setPopupOpen(true)
         // 通知锁的状态
         adapter.emit({
@@ -79,7 +69,7 @@ chrome.runtime.onConnect.addListener(function (port) {
     const token = await State.getInstance().getToken()
     if (!token) {
         await State.getInstance().setLoginBadge()
+    }else{
+        await initPush()
     }
-    await polling()
-    await initPush()
 })()

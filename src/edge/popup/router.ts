@@ -100,7 +100,8 @@ router.beforeEach(async (to, from, next) => {
             return
         }
     } else if (store.token) {
-        next('/user')
+        // next('/user')
+        next()
         return
     }
     next()

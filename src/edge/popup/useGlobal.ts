@@ -65,7 +65,7 @@ export const useGlobalStore = defineStore<'global', {
             }
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = "6e48a9edc5e64f92b9bd7c97fd470019"
+                this.token = "a6151c0f826143c49fe64f70848668fe"
             }
         },
         async getUserInfo(): Promise<any> {
@@ -109,7 +109,9 @@ export const useGlobalStore = defineStore<'global', {
         },
         async logout(){
             const endpoint = this.endpoint
+            console.log('before reset',endpoint)
             await this.reset()
+            console.log('after reset',endpoint)
             await this.set(ENDPOINT, endpoint)
         }
     },

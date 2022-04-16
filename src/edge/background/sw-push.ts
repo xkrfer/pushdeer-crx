@@ -1,6 +1,7 @@
 import {Utils} from "@/helpers/utils";
 
-const PublicKey = 'BOf8bHJBzeGjYw4Yk2t3dsnxHK8-Mxo4kf3fbFf-yslmHXKGT7dlmy2m5FCKj6NecvOfaKAbZS27I6NLQHiDfvY';
+const PublicKey = 'BCVaT2iRT0N1G8fXJFok1_DyloWdrOPkL_kZByYkccjLPdZy6v8PXdGsfDPGSo4uqvMbEAJgadQJDc2dJArH63w';
+import logo from "@/assets/logo.png"
 
 export function initPush() {
     addPushEvent()
@@ -23,6 +24,11 @@ function subscribe() {
 
 function addPushEvent() {
     self.addEventListener('push', (event: any) => {
-        console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+        const title = event.data.text();
+        const options = {
+            body: title,
+            icon: logo,
+        };
+        event.waitUntil(registration.showNotification('新消息！', options));
     })
 }

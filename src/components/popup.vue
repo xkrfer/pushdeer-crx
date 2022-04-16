@@ -34,7 +34,7 @@ adapter.on((message, sender, sendResponse) => {
 
 <style lang="less">
 #app {
-  height: 100vh;
+  height: 600px;
   width: 375px;
   font-size: 14px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
