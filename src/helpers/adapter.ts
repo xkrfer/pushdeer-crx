@@ -80,7 +80,6 @@ class Adapter {
     emit(message: Message) {
         if (import.meta.env.DEV) return
         chrome.runtime.sendMessage(message, (response) => {
-            console.log('emit response', response)
         })
     }
 
@@ -96,11 +95,11 @@ class Adapter {
 
     }
 
-    async notifications(message: string) {
+    async notifications(message: string, title: string = "有新消息啦！") {
         chrome.notifications.create({
             type: "basic",
             iconUrl: logo,
-            title: "有新消息啦！",
+            title,
             message
         });
     }

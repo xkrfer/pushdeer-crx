@@ -1,34 +1,40 @@
-import {Utils} from "@/helpers/utils";
-
-const PublicKey = 'BCVaT2iRT0N1G8fXJFok1_DyloWdrOPkL_kZByYkccjLPdZy6v8PXdGsfDPGSo4uqvMbEAJgadQJDc2dJArH63w';
 import logo from "@/assets/logo.png"
+import {getFCMPublicKey, setFCM} from "@/edge/background/fcm";
+import {adapter} from "@/helpers/adapter";
+import {State} from "@/helpers/state";
+import {MessageType} from "@/helpers/message";
 
-export function initPush() {
-    addPushEvent()
-    subscribe()
+export async function initPush() {
+    await subscribe()
 }
 
-function subscribe() {
-    const applicationServerKey = Utils.urlB64ToUint8Array(PublicKey);
+async function subscribe() {
+    const applicationServerKey = await getFCMPublicKey()
     registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: applicationServerKey
+        applicationServerKey
     })
         .then(function (subscription) {
-            console.log(JSON.stringify(subscription))
+            setFCM(JSON.stringify(subscription))
         })
         .catch(function (err) {
             console.log('Failed to subscribe the user: ', err);
         });
 }
 
-function addPushEvent() {
+export function onPush() {
     self.addEventListener('push', (event: any) => {
         const title = event.data.text();
         const options = {
             body: title,
             icon: logo,
         };
+        if (State.getInstance().getPopupOpen()) {
+            adapter.emit({
+                type: MessageType.REFRESH
+            })
+        }
+        adapter.setBadge().then()
         event.waitUntil(registration.showNotification('新消息！', options));
     })
 }

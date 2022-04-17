@@ -9,3 +9,4 @@ export const PIN = "pin"
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const UNAUTHORIZED_CODE = 80403
 export const CONNECT_NAME = 'xkrfer_connect'
+export const FCM_TOKEN = 'fcm_token'

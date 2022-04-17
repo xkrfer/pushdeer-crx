@@ -22,7 +22,7 @@
                            cancel-button-text="取消" @confirm="confirmDelete(device.id)">
               >
               <template #reference>
-                <span class="iconfont icon-shanchu text-[18px] cursor-pointer hover:text-[#313d7d]"></span>
+                <span class="iconfont icon-shanchu text-[18px] cursor-pointer hover:text-[#313d7d]" v-if="device.device_id !== device_id"></span>
               </template>
             </el-popconfirm>
           </div>

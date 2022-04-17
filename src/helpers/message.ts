@@ -15,10 +15,3 @@ export enum MessageType {
     PIN_PASS = 'PIN_PASS',
     REFRESH = 'REFRESH',
 }
-
-// 监听来自content-script的消息
-export const receiveMessageFromContent = (callback: (message: Message, sendResponse: any) => void) => {
-    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        callback(request, sendResponse);
-    });
-};
