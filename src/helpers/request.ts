@@ -4,7 +4,7 @@ import {UNAUTHORIZED_CODE} from "@/helpers/constants";
 import {router} from "@/edge/popup/router";
 
 const service = axios.create({
-    timeout: 2000, // 超时时间
+    timeout: 60000, // 超时时间
 });
 
 service.interceptors.request.use(
