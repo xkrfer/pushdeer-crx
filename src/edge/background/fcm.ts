@@ -20,6 +20,8 @@ export async function setFCM(subscription: string) {
             await bindFCM(device.id, subscription)
             return
         }
+        await adapter.notifications('设备不存在', '通知')
+        return
     }
     await adapter.notifications('设备绑定失败', '通知')
 }

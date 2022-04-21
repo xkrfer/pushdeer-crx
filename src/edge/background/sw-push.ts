@@ -17,8 +17,11 @@ async function subscribe() {
         .then(function (subscription) {
             setFCM(JSON.stringify(subscription))
         })
-        .catch(function (err) {
-            console.log('Failed to subscribe the user: ', err);
+        .catch(async function (err) {
+            console.log('Failed to subscribe the user: ', err)
+            const subscription = await registration.pushManager.getSubscription()
+            await subscription?.unsubscribe()
+            await adapter.notifications('请关闭浏览器后重试', '设备绑定失败')
         });
 }
 
