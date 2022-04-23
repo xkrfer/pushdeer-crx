@@ -1,4 +1,4 @@
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {createFingerprint} from "@/helpers/createFingerprint";
 import {DEVICE_ID} from "@/helpers/constants";
 import {onMounted} from "vue";

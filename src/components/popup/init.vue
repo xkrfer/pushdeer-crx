@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import {reactive, ref} from "vue";
 import type {FormInstance} from 'element-plus'
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {ElMessage} from "element-plus";
 import {useNavigation} from "@/hooks/useNavigation";
 import {ENDPOINT} from "@/helpers/constants";

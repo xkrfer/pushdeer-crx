@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {request} from "@/helpers/request";
 import {AxiosRequestConfig} from "axios";
 

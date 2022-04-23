@@ -36,26 +36,14 @@
 </template>
 
 <script lang="ts" setup>
-import {useGetMessageList} from "@/hooks/message/useGetMessageList";
 import avatar from "@/assets/avatar.png";
-import {adapter} from "@/helpers/adapter";
 import MessageInfo from "@/components/popup/message-info.vue";
 import {ref} from "vue";
-import {MessageType} from "@/helpers/message";
+import {useMessage} from "@/hooks/message/useMessage";
 
 const InfoRef = ref()
-adapter.clearBadge()
 
-const {getMessageList, list, disabled, page, keyword, refresh} = useGetMessageList()
-const load = async () => {
-  if (disabled.value) return
-  await getMessageList()
-}
-const search = async () => {
-  page.value = 1
-  list.value = []
-  await getMessageList()
-}
+const {load, keyword, search, list} = useMessage()
 
 const openInfo = (message: any) => {
   const {type, text, date, html} = message
@@ -64,13 +52,6 @@ const openInfo = (message: any) => {
   })
 }
 
-adapter.on((message, sender, sendResponse) => {
-  if (message.type === MessageType.REFRESH) {
-    refresh()
-    adapter.clearBadge()
-  }
-  sendResponse('ok')
-})
 
 </script>
 
@@ -85,7 +66,6 @@ adapter.on((message, sender, sendResponse) => {
 .infinite-list .infinite-list-item {
   margin: 24px 0;
 }
-
 
 .line {
   background: #313d7d;

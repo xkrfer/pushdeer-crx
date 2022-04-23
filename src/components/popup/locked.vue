@@ -21,7 +21,7 @@
 import {reactive, ref} from 'vue'
 import type {FormInstance} from 'element-plus'
 import {ElMessage, ElMessageBox} from "element-plus";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {useNavigation} from "@/hooks/useNavigation";
 import {adapter} from "@/helpers/adapter";
 import {MessageType} from "@/helpers/message";

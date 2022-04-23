@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {storeToRefs} from "pinia";
 import {onMounted} from "vue";
 import {useRequest} from "@/hooks/useRequest";

@@ -11,7 +11,7 @@ import {CONNECT_NAME} from "@/helpers/constants";
 import {adapter} from "@/helpers/adapter";
 import {MessageType} from "@/helpers/message";
 import {useNavigation} from "@/hooks/useNavigation";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 
 if (import.meta.env.PROD) {
   chrome.runtime.connect({name: CONNECT_NAME});

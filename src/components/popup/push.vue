@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import {useGetKeyList} from "@/hooks/key/useGetKeyList";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {storeToRefs} from "pinia";
 import {usePushMessage} from "@/hooks/message/usePushMessage";
 import {watch} from "vue";

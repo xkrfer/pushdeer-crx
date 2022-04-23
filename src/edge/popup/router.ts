@@ -9,7 +9,7 @@ import Key from "@/components/popup/key.vue"
 import Push from "@/components/popup/push.vue"
 import BlankLayout from "@/components/layout/blank-layout.vue";
 import UserLayout from "@/components/layout/user-layout.vue";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import Locked from "@/components/popup/locked.vue";
 
 export const router = createRouter({

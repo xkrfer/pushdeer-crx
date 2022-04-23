@@ -39,7 +39,7 @@
 import {useGetDeviceList} from "@/hooks/device/useGetDeviceList";
 import {useGetFingerprint} from "@/hooks/device/useGetFingerprint";
 import {useCreateDevice} from "@/hooks/device/useCreateDevice";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {storeToRefs} from "pinia";
 import {ElMessage} from "element-plus";
 import {useRemoveDevice} from "@/hooks/device/useRemoveDevice";
@@ -84,7 +84,6 @@ const rename = async (id: number) => {
 </script>
 
 <style lang="less">
-
 .device-remove {
   width: 300px !important;
 }

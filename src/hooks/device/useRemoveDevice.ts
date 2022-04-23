@@ -1,4 +1,4 @@
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 import {useRequest} from "@/hooks/useRequest";
 
 export function useRemoveDevice() {

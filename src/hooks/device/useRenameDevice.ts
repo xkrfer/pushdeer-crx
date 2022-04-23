@@ -1,6 +1,6 @@
 import {ElMessage, ElMessageBox} from "element-plus";
 import {useRequest} from "@/hooks/useRequest";
-import {useGlobalStore} from "@/edge/popup/useGlobal";
+import {useGlobalStore} from "@/edge/useGlobal";
 
 export function useRenameDevice() {
     const store = useGlobalStore();
