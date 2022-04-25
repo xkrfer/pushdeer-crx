@@ -85,6 +85,7 @@ router.beforeEach(async (to, from, next) => {
     const store = useGlobalStore()
     await store.init()
     if (!to.path.startsWith('/login')) {
+        // 先做成本地的
         if (to.path === '/locked') {
             if (!store.pin) {
                 next('/user')
@@ -100,7 +101,6 @@ router.beforeEach(async (to, from, next) => {
             return
         }
     } else if (store.token) {
-        // next('/user')
         next()
         return
     }

@@ -40,4 +40,10 @@ export function onPush() {
         adapter.setBadge().then()
         event.waitUntil(registration.showNotification('新消息！', options));
     })
+    // 监听通知点击事件
+    self.addEventListener('notificationclick', (event: any) => {
+        event.notification.close();
+        adapter.clearBadge().then()
+        adapter.openOptionsPage()
+    });
 }

@@ -44,8 +44,14 @@ export const useGlobalStore = defineStore<'global', {
             pushkeys: [],
             messageRandom: 0,
             pin: '',
-            passed: false
+            passed: true
         }
+    },
+    getters: {
+        locked: (state: any) => {
+            if (!state.pin) return false
+            return !state.passed
+        },
     },
     actions: {
         async set(key: IKey, value: string) {
@@ -65,7 +71,7 @@ export const useGlobalStore = defineStore<'global', {
             }
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = "7dc6ff556e844eb8ad6dbaca8da3e4af"
+                this.token = ""
             }
         },
         async getUserInfo(): Promise<any> {
@@ -107,11 +113,11 @@ export const useGlobalStore = defineStore<'global', {
                 type: MessageType.CLEAR
             })
         },
-        async logout(){
+        async logout() {
             const endpoint = this.endpoint
-            console.log('before reset',endpoint)
+            console.log('before reset', endpoint)
             await this.reset()
-            console.log('after reset',endpoint)
+            console.log('after reset', endpoint)
             await this.set(ENDPOINT, endpoint)
         }
     },

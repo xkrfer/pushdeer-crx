@@ -53,8 +53,7 @@ defineExpose({
 @import "../../assets/styles/highlight/bootstrap.css";
 @import "../../assets/styles/highlight/github.min.css";
 .message-info {
-  background: url("../../assets/deer.png") 100% no-repeat;
-
+  //background: url("../../assets/deer.png") 100% no-repeat;
   .el-drawer__header {
     margin-bottom: 0 !important;
   }

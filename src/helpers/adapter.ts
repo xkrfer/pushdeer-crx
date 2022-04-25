@@ -104,6 +104,11 @@ class Adapter {
         });
     }
 
+    openOptionsPage() {
+        if (import.meta.env.DEV) return
+        chrome.runtime.openOptionsPage()
+    }
+
     static getInstance() {
         if (!this.instance) {
             this.instance = new Adapter()

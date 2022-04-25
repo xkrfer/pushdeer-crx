@@ -19,7 +19,7 @@ export function useGetMessageList() {
                 keyword: keyword.value
             }
         })
-        if (data.code === 0 && data.content.totalPage >= page.value) {
+        if (data?.code === 0 && data.content.totalPage >= page.value) {
             totalPage.value = data.content.totalPage
             page.value = data.content.page + 1
             const content: any[] = data.content.messages as any[]

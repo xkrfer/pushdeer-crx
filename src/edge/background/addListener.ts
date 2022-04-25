@@ -2,7 +2,7 @@ import {MessageType} from "@/helpers/message";
 import {setToken} from "@/edge/background/setToken";
 import {adapter} from "@/helpers/adapter";
 import {State} from "@/helpers/state";
-import {CONNECT_NAME} from "@/helpers/constants";
+import {CONNECT_NAME, CONNECT_OPTION_NAME} from "@/helpers/constants";
 import {onPush} from "@/edge/background/sw-push";
 
 const CHROME_ID = chrome.runtime.id
@@ -26,6 +26,14 @@ function onConnectPopup() {
             port.onDisconnect.addListener(function () {
                 State.getInstance().setPopupOpen(false)
             });
+        }
+
+        if (port.name === CONNECT_OPTION_NAME) {
+            // 通知锁的状态
+            adapter.emit({
+                type: MessageType.PIN_STATE,
+                data: LOCKED
+            })
         }
     });
 }

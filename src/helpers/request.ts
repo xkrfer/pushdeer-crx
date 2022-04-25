@@ -1,7 +1,10 @@
 import axios from 'axios';
 import {ElMessage} from "element-plus";
 import {UNAUTHORIZED_CODE} from "@/helpers/constants";
-import {router} from "@/edge/popup/router";
+import {router as popupRouter} from "@/edge/popup/router";
+import {router as optionsRouter} from "@/edge/options/router";
+
+let showUnAuthorizedMessage = false;
 
 const service = axios.create({
     timeout: 60000, // 超时时间
@@ -17,12 +20,24 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     async (response) => {
         if (response.data?.code == 0) return response.data
-        ElMessage.error(response.data.error);
         if (response.data?.code === UNAUTHORIZED_CODE) {
-            await router.push({
-                name: "Login"
-            })
+            if (!showUnAuthorizedMessage) {
+                ElMessage.error(response.data.error);
+                showUnAuthorizedMessage = true;
+            }
+            const {pathname} = window.location
+            if (pathname === '/popup/popup.html') {
+                await popupRouter.push({
+                    name: "Login"
+                })
+            } else {
+                await optionsRouter.push({
+                    name: "NotAuthorized"
+                })
+            }
             return
+        } else {
+            ElMessage.error(response.data.error);
         }
         return response.data
     },
