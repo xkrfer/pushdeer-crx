@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^1.1.4",
     "@fingerprintjs/fingerprintjs": "^3.3.3",
     "axios": "^0.26.1",
     "dayjs": "^1.11.0",

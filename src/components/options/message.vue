@@ -9,8 +9,8 @@
       <el-divider class="!mb-0 mt-[20px]"/>
     </div>
     <div class="pb-[20px] top-[70px] content">
-      <div class="w-[1200px] mx-auto"  v-loading="loading">
-        <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
+      <div class="w-[1200px] mx-auto" v-loading="loading">
+        <ul class="infinite-list" id="message" style="overflow: auto">
           <template v-if="list.length>0">
             <li v-for="message in list" :key="message.id" class="infinite-list-item">
               <div class="flex items-center my-[12px]">
@@ -23,7 +23,8 @@
                 </div>
                 <span class="flex-1 h-[1px] line"></span>
               </div>
-              <div class="message-info py-[5px] px-[15px]">
+              <div class="message-info p-[16px]">
+                <h1 class="font-bold text-[16px] mb-[10px]">{{message.text}}</h1>
                 <p v-html="message.html"></p>
               </div>
             </li>
@@ -38,8 +39,30 @@
 <script setup lang="ts">
 import {useMessage} from "@/hooks/message/useMessage";
 import avatar from "@/assets/avatar.png";
+import {onBeforeUnmount, onMounted} from "vue";
 
-const {load, search, keyword, getMessageList, list, loading} = useMessage()
+const {search, keyword, load, list, loading} = useMessage()
+
+const onScrollBottom = () => {
+  const scrollTop = document.getElementById('message')!.scrollTop
+  const clientHeight = document.getElementById('message')!.clientHeight;
+  const scrollHeight = document.getElementById('message')!.scrollHeight;
+  if (scrollTop + clientHeight >= scrollHeight) {
+    load()
+  }
+  return null
+}
+
+
+onMounted(() => {
+  load()
+  document.getElementById('message')!.addEventListener("scroll", onScrollBottom)
+})
+
+onBeforeUnmount(() => {
+  document.getElementById('message')!.removeEventListener("scroll", onScrollBottom)
+})
+
 
 </script>
 

@@ -71,7 +71,7 @@ export const useGlobalStore = defineStore<'global', {
             }
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = ""
+                this.token = "8006b71250d949dbae8cb3a35bb402db"
             }
         },
         async getUserInfo(): Promise<any> {

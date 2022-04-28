@@ -34,16 +34,16 @@ const {userInfo} = storeToRefs(store)
 const {routerTo} = useNavigation()
 const pin = ref(!!store.pin)
 
-const logout = () => {
-  store.logout()
-  routerTo({
+const logout = async () => {
+  await store.logout()
+  await routerTo({
     name: "Login"
   })
 }
 
-const reset = () => {
-  store.reset()
-  routerTo({
+const reset = async () => {
+  await store.reset()
+  await routerTo({
     name: "Init"
   })
 }
