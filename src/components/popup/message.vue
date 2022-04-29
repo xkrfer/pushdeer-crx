@@ -38,12 +38,17 @@
 <script lang="ts" setup>
 import avatar from "@/assets/avatar.png";
 import MessageInfo from "@/components/popup/message-info.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useMessage} from "@/hooks/message/useMessage";
 
 const InfoRef = ref()
 
 const {load, keyword, search, list} = useMessage()
+
+onMounted(() => {
+  load()
+})
+
 
 const openInfo = (message: any) => {
   const {type, text, date, html} = message

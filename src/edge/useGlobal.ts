@@ -71,7 +71,7 @@ export const useGlobalStore = defineStore<'global', {
             }
             this.mounted = true
             if (import.meta.env.DEV) {
-                this.token = "8006b71250d949dbae8cb3a35bb402db"
+                this.token = "be4d03c4f46e47f8896c96752d629287"
             }
         },
         async getUserInfo(): Promise<any> {
@@ -98,27 +98,36 @@ export const useGlobalStore = defineStore<'global', {
         },
 
         async reset() {
-            this.endpoint = ""
-            this.github = ""
-            this.token = ""
-            this.userInfo = undefined
-            this.mounted = false
-            this.device_id = ""
-            this.devices = []
-            this.pushkeys = []
-            this.messageRandom = 0
-            this.pin = ''
-            await adapter.clearStorage()
-            await adapter.emit({
-                type: MessageType.CLEAR
+            const data = await request({
+                url: `${this.endpoint}/user/logout`,
+                method: "POST",
+                data: {
+                    token: this.token
+                }
             })
+            // @ts-ignore
+            if (data?.code === 0) {
+                this.endpoint = ""
+                this.github = ""
+                this.token = ""
+                this.userInfo = undefined
+                this.mounted = false
+                this.device_id = ""
+                this.devices = []
+                this.pushkeys = []
+                this.messageRandom = 0
+                this.pin = ''
+                await adapter.clearStorage()
+                await adapter.emit({
+                    type: MessageType.CLEAR
+                })
+            }
+
         },
         async logout() {
             const endpoint = this.endpoint
-            console.log('before reset', endpoint)
             await this.reset()
-            console.log('after reset', endpoint)
             await this.set(ENDPOINT, endpoint)
-        }
+        },
     },
 })

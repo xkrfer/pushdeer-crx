@@ -94,12 +94,6 @@ router.beforeEach(async (to, from, next) => {
             }
             return
         }
-        const d = await store.getUserInfo()
-        if (!d) {
-            await store.set('token', undefined)
-            next('/login')
-            return
-        }
     } else if (store.token) {
         next()
         return

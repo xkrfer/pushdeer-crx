@@ -4,7 +4,7 @@
       <h3 class="font-bold">推送</h3>
     </div>
     <el-scrollbar height="492px">
-      <el-form :model="form" label-width="60px" :rules="rules" ref="Form">
+      <el-form :model="form" label-width="60px" :rules="rules" ref="Form" @submit.native.prevent>
         <el-form-item label="类型">
           <el-radio-group v-model="form.type">
             <el-radio label="markdown">MarkDown</el-radio>

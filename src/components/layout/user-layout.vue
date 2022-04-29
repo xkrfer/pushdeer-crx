@@ -19,8 +19,9 @@
 
 <script lang="ts" setup>
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useNavigation} from "@/hooks/useNavigation";
+import {useGlobalStore} from "@/edge/useGlobal";
 
 interface ITab {
   name: string;
@@ -59,6 +60,17 @@ const Tabs: ITab[] = [
 const {routerTo, route} = useNavigation()
 
 const active = ref(route.name)
+
+const store = useGlobalStore()
+
+onMounted(async () => {
+  const d = await store.getUserInfo()
+  if (!d) {
+    await store.set('token', undefined)
+    await routerTo('/login')
+  }
+})
+
 
 const onTabChange = (tab: ITab) => {
   routerTo({

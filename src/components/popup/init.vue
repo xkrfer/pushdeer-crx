@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-width="0px" class="w-[260px]" :rules="rules" ref="ruleFormRef">
+  <el-form :model="form" label-width="0px" class="w-[260px]" :rules="rules" ref="ruleFormRef" @submit.native.prevent>
     <el-form-item prop="endpoint">
       <el-input v-model="form.endpoint" placeholder="请输入API服务的endpoint url"/>
     </el-form-item>
