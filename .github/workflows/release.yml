@@ -2,8 +2,6 @@
 name: release extension
 on:
   push:
-    branches:
-      - main
     tags:
       - v*
 
