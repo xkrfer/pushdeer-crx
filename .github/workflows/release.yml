@@ -17,12 +17,12 @@ jobs:
         run: |
           npm install
           npm run build
-          rm -rf pushdeer-crx
-          mv dist pushdeer-crx
+          mkdir build
+          mv dist build/pushdeer-crx
 
       - name: Release
         uses: fnkr/github-action-ghr@v1
         env:
           GHR_COMPRESS: zip
-          GHR_PATH: pushdeer-crx
+          GHR_PATH: build/
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
