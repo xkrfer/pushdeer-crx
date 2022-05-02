@@ -41,7 +41,7 @@ export default defineConfig({
     root: root("/edge"),
     build: {
         emptyOutDir: true,
-        minify: false,
+        minify: true,
         rollupOptions: {
             input: {
                 popup: root("/edge/popup/popup.html"),

@@ -1,0 +1,30 @@
+# docker-image.yml
+name: release extension
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+
+jobs:
+  push_replease:
+    name: Push release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+          rm -rf pushdeer-crx
+          mv dist pushdeer-crx
+
+      - name: Release
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_COMPRESS: zip
+          GHR_PATH: pushdeer-crx/
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
