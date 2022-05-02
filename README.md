@@ -7,7 +7,7 @@ pushdeer client for edge and chrome
 
 2. Decomporess the pushdeer-crx.zip
 
-3. Open the extensions management, [Chrome Extensions](chrome://extensions/) 、[Edge Extensions](edge://extensions)
+3. Open the extensions management,like chrome://extensions or edge://extensions
 
 4. Enable Developer mode
 
@@ -21,7 +21,7 @@ pushdeer client for edge and chrome
 
 2. 解压 **pushdeer-crx.zip**
 
-3. 打开浏览器的插件管理, [Chrome Extensions](chrome://extensions/) 、[Edge Extensions](edge://extensions)
+3. 打开浏览器的插件管理，chrome://extensions 或 edge://extensions
 
 4. 打开**开发者模式**
 
