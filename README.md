@@ -27,4 +27,4 @@ pushdeer client for edge and chrome
 
 5. 点击 **加载解压缩的扩展**，选择刚刚解压的文件夹 **pushdeer-crx**
 
-6. 需配合[ push deer-node](https://github.com/xkrfer/pushdeer-node) 使用
+6. 需配合[ pushdeer-node](https://github.com/xkrfer/pushdeer-node) 使用
